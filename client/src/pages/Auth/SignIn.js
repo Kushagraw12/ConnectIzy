@@ -12,14 +12,14 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { signIn } from "../../redux/ActionCreators/Auth";
-// import { useDispatch } from "react-redux";
+import { signIn } from "../../redux/ActionCreators/Auth";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignIn() {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -31,7 +31,7 @@ export default function SignIn() {
       password: data.get("password"),
     });
 
-    // dispatch(signIn(data.get("email"), data.get("password"), navigate));
+    dispatch(signIn(data.get("email"), data.get("password"), navigate));
   };
 
   return (
