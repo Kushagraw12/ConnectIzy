@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 function App() {
-  const creds = localStorage.getItem("profile");
+  // const creds = localStorage.getItem("profile");
   const loadingStatus = useSelector((state) => state.loading.isLoading);
   const dispatch = useDispatch();
 
@@ -27,10 +27,11 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateOutlet1 />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<Navigate to="/profile" />} />
           </Route>
           <Route path="/" element={<PrivateOutlet2 />}>
             <Route path="/home" element={<Homepage />} />
-            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Navigate to="/home" />} />
           </Route>
