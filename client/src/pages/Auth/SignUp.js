@@ -22,14 +22,12 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
 
-    const name = data.get("firstName") + " " + data.get("lastName");
-    // console.log(name);
-    dispatch(signUp(data.get("email"), data.get("password"), name));
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    dispatch(signUp(data));
   };
 
   return (
@@ -97,6 +95,42 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="mobileNum"
+                  label="Your Mobile Number (without country code)"
+                  id="mobileNum"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="linkedinProfile"
+                  label="LinkedIn Profile Link"
+                  id="linkedinProfile"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="company"
+                  label="Current Company"
+                  id="company"
+                />
+              </Grid>{" "}
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="univ_attended"
+                  label="Your University"
+                  id="univ_attended"
                 />
               </Grid>
             </Grid>

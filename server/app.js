@@ -15,6 +15,15 @@ app.get("/", (req, res) => {
 const userRoutes = require("./routes/login");
 app.use("/user", userRoutes);
 
+const friendRoutes = require("./routes/friends");
+app.use("/friend", friendRoutes);
+
+const eventRoutes = require("./routes/events");
+app.use("/event", eventRoutes);
+
+const searchRoutes = require("./routes/search");
+app.use("/search", searchRoutes);
+
 // Middleware
 app.use("/", () => {
   console.log("Middleware Running");
