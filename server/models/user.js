@@ -23,7 +23,6 @@ const UserSchema = mongoose.Schema({
   },
   qr_code: {
     type: String,
-    retuire: true,
   },
   isAdmin: {
     type: Boolean,
