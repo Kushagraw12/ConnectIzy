@@ -1,9 +1,9 @@
-// 
+//
 import { useState, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
-const QrCode = () => {
-  const [url, setUrl] = useState("");
+const QrCode = (uid) => {
+  const [url, setUrl] = useState(uid);
   const qrRef = useRef();
 
   const downloadQRCode = (e) => {
@@ -28,15 +28,16 @@ const QrCode = () => {
       id="qrCode"
       value={url}
       size={300}
-      bgColor={"#00ff00"}
+      bgColor={"#ffffff"}
       level={"H"}
     />
   );
   return (
     <div className="qrcode__container">
-      <div  ref={qrRef}>{qrcode}</div>
+      <div ref={qrRef}>{qrcode}</div>
       <div className="input__group">
-        <form onSubmit={downloadQRCode}>
+
+        {/* <form onSubmit={downloadQRCode}>
           <label>Enter URL</label>
           <input
             type="text"
@@ -47,7 +48,7 @@ const QrCode = () => {
           <button type="submit" disabled={!url}>
             Download QR code
           </button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
