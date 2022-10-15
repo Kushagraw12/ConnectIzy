@@ -8,45 +8,40 @@ router.get("/", (req, res) => {
 
 // Add a new User - REGISTRATION
 router.post("/register", async (req, res, next) => {
+  console.log(req.body);
   try {
     if (typeof req.body.firstName === "undefined") {
       res.status(400).send("Firstname is required");
-    }
-    if (typeof req.body.lastName === "undefined") {
+    } else if (typeof req.body.lastName === "undefined") {
       res.status(400).send("Lastname is required");
-    }
-    if (typeof req.body.password === "undefined") {
+    } else if (typeof req.body.password === "undefined") {
       res.status(400).send("Password is required");
-    }
-    if (typeof req.body.emailid === "undefined") {
+    } else if (typeof req.body.email === "undefined") {
       res.status(400).send("Email id is required");
-    }
-    if (typeof req.body.linkedinProfile === "undefined") {
+    } else if (typeof req.body.linkedinProfile === "undefined") {
       res.status(400).send("LinkedIn Priofle Link is required");
-    }
-    if (typeof req.body.company === "undefined") {
+    } else if (typeof req.body.company === "undefined") {
       res.status(400).send("Current company is required");
-    }
-    if (typeof req.body.univ_attended === "undefined") {
+    } else if (typeof req.body.univ_attended === "undefined") {
       res.status(400).send("University Attended is required");
+    } else {
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        password: req.body.password,
+        email: req.body.email,
+        mobileNum: req.body.mobileNum,
+        isAdmin: req.body.isAdmin === null ? false : req.body.isAdmin,
+        linkedinProfile: req.body.linkedinProfile,
+        friends: [],
+        company: req.body.company,
+        eventsAttended: [],
+        univ_attended: req.body.univ_attended,
+      });
+      console.log(`${req.body} registered!`);
+      user.save();
+      res.status(200).send(user);
     }
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      password: req.body.password,
-      emailid: req.body.emailid,
-      mobileNum: req.body.mobileNum,
-      qr_code: "abcdefgh",
-      isAdmin: req.body.isAdmin === null ? false : req.body.isAdmin,
-      linkedinProfile: req.body.linkedinProfile,
-      friends: [],
-      company: req.body.company,
-      eventsAttended: [],
-      univ_attended: req.body.univ_attended,
-    });
-    console.log(`${req.body} registered!`);
-    user.save();
-    res.status(200).send(user);
   } catch (err) {
     next(err);
   }
@@ -60,7 +55,7 @@ router.post("/login", async (req, res, next) => {
 
     const user = await User.findOne({ password: cred_pass });
     if (user) {
-      if (user.emailid === cred_email) {
+      if (user.email === cred_email) {
         console.log(`${user} logged in`);
         res.status(200).send(user);
       } else {

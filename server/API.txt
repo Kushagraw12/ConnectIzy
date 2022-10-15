@@ -1,8 +1,60 @@
 1. Sign up / Register a new user:
-"/user/register"
+"/user/register" (POST)
 
 2. Login [already existing user]:
-"user/login"
+"user/login" (POST)
 
 3. Get a user using user ID:
-"user/getUser"
+"user/getUser" (POST)
+
+4. Get All Friends of a User:
+"friend/getAll" (POST)
+takes: "userID"
+returns: Array containing all friends of the user
+
+5. Add a friend:
+"friend/addFriend" (PUT)
+takes: "userID", "friendID"
+returns: Updated Array of All friends of the user
+
+Example of Array Returned in #4, #5:
+[
+    {
+        "dateAdded": "2022-10-15T22:50:41.483Z",
+        "friend": "634b336b13f35b86a20901da"
+    },
+    {
+        "dateAdded": "2022-10-15T22:51:38.658Z",
+        "friend": "634b2f792d239b82fc51bc49"
+    }
+]
+
+6. Get All events attended by the user:
+"event/getAll" (POST)
+takes: "userID"
+return: Array containing all events
+
+7. Add event for a user:
+"event/addEvent" (PUT)
+takes: "userID", "event"
+returns: Array containing all events
+
+8. Find by Name:
+"search/find_by_name" (POST)
+takes: "name"
+returns: User data after running that name text against firstName and lastName
+
+9. Find by Date: (Not working properly)
+"search/find_by_date" (POST)
+takes: "userID", "startDate", "endDate"
+returns: User data found in that date range
+
+10. Find by mobile:
+"search/find_by_mobile" (POST)
+takes: "mobileNum"
+returns: User data found
+
+11. Find by Email:
+"search/find_by_email" (POST)
+takes: "email"
+returns: User data found

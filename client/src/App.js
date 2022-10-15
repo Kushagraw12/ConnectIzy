@@ -1,24 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
   Outlet,
   Navigate,
-  useParams,
 } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Profile from "./pages/Profile/Profile";
-import Homepage from './pages/Homepage/Homepage';
+import Homepage from "./pages/Homepage/Homepage";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useSelector, useDispatch } from "react-redux";
-
+import ScanQrCode from "./pages/ScanQR/ScanQrCode";
+import { useSelector } from "react-redux";
 
 function App() {
   // const creds = localStorage.getItem("profile");
   const loadingStatus = useSelector((state) => state.loading.isLoading);
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -27,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateOutlet1 />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/scanqr" element={<ScanQrCode />} />
             <Route path="/" element={<Navigate to="/profile" />} />
           </Route>
           <Route path="/" element={<PrivateOutlet2 />}>

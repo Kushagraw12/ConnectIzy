@@ -10,8 +10,11 @@ export const signIn = (email, password, navigate) => (dispatch) => {
         //   console.log(response.status);
         if (response.status === 200) {
           //   console.log("inn");
-        //   localStorage.setItem("profile", response.data.token);
-        localStorage.setItem("email_password", response.data.emailid + response.data.password);
+          //   localStorage.setItem("profile", response.data.token);
+          localStorage.setItem(
+            "email_password",
+            response.data.emailid + response.data.password
+          );
 
           dispatch(ChangeLoadingStatus(false));
           dispatch({ type: "LOGIN", payload: response.data });
@@ -38,8 +41,11 @@ export const signUp = (email, password, name) => (dispatch) => {
         //   console.log(response.status);
         if (response.status === 200) {
           //   console.log("inn");
-        //   localStorage.setItem("profile", response.data.token);
-        localStorage.setItem("email_password", response.data.emailid + response.data.password);
+          //   localStorage.setItem("profile", response.data.token);
+          localStorage.setItem(
+            "email_password",
+            response.data.emailid + response.data.password
+          );
 
           dispatch(ChangeLoadingStatus(false));
           dispatch({ type: "LOGIN", payload: response.data });
@@ -56,10 +62,9 @@ export const signUp = (email, password, name) => (dispatch) => {
 };
 
 export const LogOut = (navigate) => (dispatch) => {
-  dispatch({ type: 'LOGOUT'});
+  dispatch({ type: "LOGOUT" });
   navigate("/signin");
-
-}
+};
 
 export const ChangeLoadingStatus = (dat) => ({
   type: "CHANGE_LOADING_STATUS",
