@@ -1,0 +1,8 @@
+1. Sign up / Register a new user:
+"/user/register"
+
+2. Login [already existing user]:
+"user/login"
+
+3. Get a user using user ID:
+"user/getUser"
