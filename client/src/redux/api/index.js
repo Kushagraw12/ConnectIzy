@@ -29,3 +29,6 @@ export const signUp = (data) =>
     mobileNum: data.get("mobileNum"),
     univ_attended: data.get("univ_attended"),
   });
+
+export const getFriends = (userID) =>
+  API.post("friend/getAll", { userID: userID });
