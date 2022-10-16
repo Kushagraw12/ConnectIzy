@@ -21,7 +21,7 @@ export default function ButtonAppBar({ name, page }) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {name}
+            Hi, {name}
           </Typography>
           {page === "qrscan" ? (
             <Button
