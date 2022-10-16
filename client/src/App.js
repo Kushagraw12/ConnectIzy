@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
-import Profile from "./pages/Profile/Profile";
+// import Profile from "./pages/Profile/Profile";
+import Profile from "./pages/Profile/FinalProfile";
 import Homepage from "./pages/Homepage/Homepage";
 import LinearProgress from "@mui/material/LinearProgress";
 import ScanQrCode from "./pages/ScanQR/ScanQrCode";
