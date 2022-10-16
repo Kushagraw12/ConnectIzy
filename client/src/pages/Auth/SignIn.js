@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signIn } from "../../redux/ActionCreators/Auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import './SignIn.css';
 
 const theme = createTheme();
 
@@ -64,7 +65,7 @@ export default function SignIn() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1}}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">

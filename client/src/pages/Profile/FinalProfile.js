@@ -16,6 +16,7 @@ import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
+import ButtonAppBar from "../../components/Navbar";
 import GetFriend from "./GetFriend";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -27,13 +28,7 @@ export default function Profile() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            {user.firstName} {user.lastName}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <ButtonAppBar name={user.firstName + " "+ user.lastName} />
       <main>
         {/* Hero unit */}
         <Box sx={{ flexGrow: 1 }}>

@@ -16,18 +16,12 @@ function Homepage() {
                 </Box> */}
         <Box className="bannerText">
           <Typography className="bannerHeading">
-                Connections Made Easy!
+                Connections Made Easy
           </Typography>
-          
-          <Button className="signInButton" component={Link} to="/signin" variant="contained" color="primary">SIGN IN</Button>
+          <div style={{display: 'flex'}}>
+          <Button className="signInButton" component={Link} to="/signin" variant="contained" color="primary" style={{marginLeft: 'auto'}}>SIGN IN</Button>
+          </div>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          p: 2,
-        }}
-      >
-        <Typography variant="h3">Explore</Typography>
       </Box>
     </>
   );
