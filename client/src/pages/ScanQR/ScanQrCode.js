@@ -1,14 +1,26 @@
 import { Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import QrReader from "react-qr-scanner";
 import ButtonAppBar from "../../components/Navbar";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ScanQrCode() {
-  const [res, setRes] = useState("");
+  const navigate = useNavigate();
   const handleScan = (data) => {
     if (data) {
-      setRes(data.text);
-      console.log("RES:", res, "Data: ", data);
+      const uid = localStorage.getItem("uid");
+      axios
+        .put("http://localhost:8080/friend/addFriend", {
+          userID: uid,
+          friendID: data.text,
+        })
+        .then(() => {
+          alert("User added as your Friend!");
+        })
+        .then(() => {
+          navigate("/profile");
+        });
     }
   };
   const handleError = (err) => {
@@ -22,7 +34,7 @@ function ScanQrCode() {
   };
   return (
     <div>
-      <ButtonAppBar />
+      <ButtonAppBar page="qrscan" />
       <Typography variant="h3" style={{ textAlign: "center", padding: "2rem" }}>
         SCAN YOUR QR CODE HERE
       </Typography>
@@ -36,7 +48,7 @@ function ScanQrCode() {
           />
         </div>
       </div>
-      <div>Result: {res}</div>
+      <div>Result: Scacnned Succesfully!</div>
     </div>
   );
   // take access for camera, scan qr, read the id, send it in post api: /user/getUser with "userID" as body

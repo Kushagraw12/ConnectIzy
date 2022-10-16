@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LogOut } from "../redux/ActionCreators/Auth";
 
-export default function ButtonAppBar({ name }) {
+export default function ButtonAppBar({ name, page }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,9 +23,23 @@ export default function ButtonAppBar({ name }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {name}
           </Typography>
-          <Button style={{ marginRight: "40%" }} color="inherit" href="/scanqr">
-            Scan a QR Code
-          </Button>
+          {page === "qrscan" ? (
+            <Button
+              style={{ marginRight: "40%" }}
+              color="inherit"
+              href="/profile"
+            >
+              Go back to Profile Page!
+            </Button>
+          ) : (
+            <Button
+              style={{ marginRight: "40%" }}
+              color="inherit"
+              href="/scanqr"
+            >
+              Scan a QR Code
+            </Button>
+          )}
           <Button color="inherit" onClick={handleLogOut}>
             Logout
           </Button>
