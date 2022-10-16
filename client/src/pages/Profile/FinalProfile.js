@@ -1,39 +1,65 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
+// import AppBar from "@mui/material/AppBar";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
+// import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
 import ButtonAppBar from "../../components/Navbar";
-import GetFriend from "./GetFriend";
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function Profile() {
-  const user = useSelector((state) => state.auth.authData);
+  const [user, setUser] = React.useState({});
+  const [friends, setFriends] = React.useState([]);
+  const [load, setLoad] = React.useState(false);
+  const [events, setEvents] = React.useState([]);
+  const [load1, setLoad1] = React.useState(false);
+
+  React.useEffect(() => {
+    const creds = localStorage.getItem("uid");
+    creds ? (
+      axios
+        .post("http://localhost:8080/user/getUser", { userID: creds })
+        .then((res) => {
+          setUser(res.data);
+        })
+    ) : (
+      <Navigate to="/signin" />
+    );
+    axios
+      .post("http://localhost:8080/friend/getAll", { userID: user._id })
+      .then((resp) => {
+        setFriends(resp.data);
+        setLoad(true);
+      });
+    axios
+      .post("http://localhost:8080/event/getAll", { userID: user._id })
+      .then((resp) => {
+        setEvents(resp.data);
+        setLoad1(true);
+      });
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ButtonAppBar name={user.firstName + " "+ user.lastName} />
+      <ButtonAppBar name={user.firstName + " " + user.lastName} />
       <main>
         {/* Hero unit */}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={6} style={{ padding: "9rem" }}>
+            <Grid item xs={3} style={{ padding: "9rem" }}>
               <div>
                 <QRCodeCanvas
                   id="qrCode"
@@ -44,7 +70,7 @@ export default function Profile() {
                 />
               </div>
             </Grid>
-            <Grid item xs={6} style={{ padding: "5rem" }}>
+            <Grid item xs={9} style={{ padding: "5rem" }}>
               <Typography variant="h4" gutterBottom>
                 Hey there, scan the QR to add me to your network.
               </Typography>
@@ -77,7 +103,7 @@ export default function Profile() {
                 gutterBottom
                 style={{ textAlign: "center" }}
               >
-                MY CONNECTIONS
+                MY Friends
               </Typography>
               <List
                 sx={{
@@ -86,37 +112,39 @@ export default function Profile() {
                   bgcolor: "background.paper",
                 }}
               >
-                {" "}
-                {user.friends.map((friend) => {
-                  return (
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="/static/images/avatar/1.jpg"
+                {!load ? (
+                  <div>Loading...</div>
+                ) : (
+                  friends.map((friend) => {
+                    return (
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar
+                            alt={friend.firstName}
+                            src="/static/images/avatar/1.jpg"
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={friend.firstName + friend.lastName}
+                          secondary={
+                            <React.Fragment>
+                              <Typography
+                                sx={{ display: "inline" }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                              >
+                                {friend.comapny}
+                              </Typography>
+                              <br />
+                              {friend.company}
+                            </React.Fragment>
+                          }
                         />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Friend Name"
-                        secondary={
-                          <React.Fragment>
-                            <Typography
-                              sx={{ display: "inline" }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              Ali Connors
-                            </Typography>
-                            {
-                              " — I'll be in your neighborhood doing errands this…"
-                            }
-                          </React.Fragment>
-                        }
-                      />
-                    </ListItem>
-                  );
-                })}
+                      </ListItem>
+                    );
+                  })
+                )}
               </List>
             </Grid>
             <Grid item xs={6}>
@@ -134,31 +162,29 @@ export default function Profile() {
                   bgcolor: "background.paper",
                 }}
               >
-                {" "}
-                {user.eventsAttended.map((friend) => {
-                  return (
-                    <ListItem alignItems="flex-start">
-                      <ListItemText
-                        primary="Event Name"
-                        secondary={
-                          <React.Fragment>
-                            <Typography
-                              sx={{ display: "inline" }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              Ali Connors
-                            </Typography>
-                            {
-                              " — I'll be in your neighborhood doing errands this…"
-                            }
-                          </React.Fragment>
-                        }
-                      />
-                    </ListItem>
-                  );
-                })}
+                {!load1 ? (
+                  <div>Loading . . .</div>
+                ) : (
+                  events.map((ev) => {
+                    return (
+                      <ListItem alignItems="flex-start">
+                        <ListItemText
+                          primary={ev}
+                          secondary={
+                            <React.Fragment>
+                              <Typography
+                                sx={{ display: "inline" }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                              ></Typography>
+                            </React.Fragment>
+                          }
+                        />
+                      </ListItem>
+                    );
+                  })
+                )}
               </List>
             </Grid>
           </Grid>

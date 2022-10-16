@@ -12,7 +12,12 @@ router.post("/getAll", async (req, res, next) => {
     const uid = req.body.userID;
     const user = await User.findOne({ _id: uid });
     if (user) {
-      res.status(200).send(user.friends);
+      var fr = [];
+      for (var i = 0; i < user.friends.length; ++i) {
+        const u2 = await User.findOne({ _id: user.friends[i].friend });
+        fr.push(u2);
+      }
+      res.status(200).send(fr);
     } else {
       res.status(404).send("User not found");
     }

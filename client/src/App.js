@@ -42,13 +42,13 @@ function App() {
 }
 
 function PrivateOutlet1() {
-  const creds = localStorage.getItem("email_password");
+  const creds = localStorage.getItem("uid");
 
   return creds ? <Outlet /> : <Navigate to="/home" />;
 }
 
 function PrivateOutlet2() {
-  const creds = localStorage.getItem("email_password");
+  const creds = localStorage.getItem("uid");
 
   return !creds ? <Outlet /> : <Navigate to="/profile" />;
 }
